@@ -100,12 +100,18 @@ public class AnvilSim extends SimInventory {
         return slot == null ? -1 : slot.frontIdx;
     }
 
+    public void emptyResult(Player player) {
+        ServerPlayer serverPlayer = ((CraftPlayer) player).getHandle();
+        serverPlayer.containerSynchronizer.sendSlotChange(menu, AnvilSlot.RESULT.backIdx, net.minecraft.world.item.ItemStack.fromBukkitCopy(org.bukkit.inventory.ItemStack.empty()));
+    }
+
     public void setCost(int cost, Player player){
         ServerPlayer serverPlayer = ((CraftPlayer) player).getHandle();
         AnvilMenu advMenu = (AnvilMenu) menu;
         boolean canTake = advMenu.getSlot(advMenu.getResultSlot()).mayPickup(serverPlayer);
         serverPlayer.containerSynchronizer.sendSlotChange(menu, AnvilSlot.COST.backIdx, net.minecraft.world.item.ItemStack.fromBukkitCopy(getCostIndicator(cost, canTake)));
     }
+
     private org.bukkit.inventory.ItemStack getCostIndicator(int cost, boolean canTake){
         if(cost <= 0){
             return bukkitFiller;

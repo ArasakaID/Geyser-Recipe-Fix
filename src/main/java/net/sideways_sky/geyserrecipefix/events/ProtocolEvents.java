@@ -101,7 +101,7 @@ public class ProtocolEvents implements PacketListener {
                 debugInfo("Server Property; Wid:" + packet.getContainerId() + " Value:" + packet.getValue());
                 event.setCancelled(true);
                 if(sim instanceof AnvilSim anvilSim){
-                  anvilSim.setCost(packet.getValue(), event.getPlayer());
+                    anvilSim.setCost(packet.getValue(), event.getPlayer());
                 }
             }
             case PacketType.Play.Server.SET_SLOT -> {
